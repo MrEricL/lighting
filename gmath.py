@@ -1,6 +1,9 @@
 import math
 from display import *
 
+'''
+AKa     +       PKd(Nhat*Lhat)      +   PKa [ (2(L-> dot  N->) N hat - Lhat) dot  V hat ] ^ x
+'''
 AMBIENT = 0
 DIFFUSE = 1
 SPECULAR = 2
@@ -26,10 +29,11 @@ def limit_color(color):
 
 #vector functions
 def normalize(vector):
-    pass
+    denom = (vector[0]**2 + vector[1]**2 + vector[2]**2) **0.5
+    return [each/denom for each in vector]
 
-def dot_product(a, b):
-    pass
+def dot_product(a, b): 
+    return sum(m*n for m,n in zip(a, b))
 
 def calculate_normal(polygons, i):
 
@@ -50,3 +54,8 @@ def calculate_normal(polygons, i):
     N[2] = A[0] * B[1] - A[1] * B[0]
 
     return N
+
+'''
+print dot_product([1,2,3],[1,5,7]) #32
+print normalize([1,2,3]) #0.267...
+'''
