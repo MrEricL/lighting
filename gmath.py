@@ -13,13 +13,17 @@ SPECULAR_EXP = 4
 
 #lighting functions
 def get_lighting(normal, view, ambient, light, areflect, dreflect, sreflect ):
-    pass
+    amb = calculate_ambient(ambient,areflect)
+    dif = 0
+    spec = 0
+
+    return amb + dif + spec
 
 def calculate_ambient(alight, areflect):
-    pass
+    return [x*areflect for x in alight]
 
 def calculate_diffuse(light, dreflect, normal):
-    pass
+    return light[1]*dreflect*dot(normal, light)
 
 def calculate_specular(light, sreflect, view, normal):
     pass
