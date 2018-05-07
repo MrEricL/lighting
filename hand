@@ -1,0 +1,134 @@
+#PALM
+push
+move
+250 100 0
+box
+-80 95 0 160 190 20
+rotate
+y 50
+rotate
+x 10
+
+#INDEX
+
+#bottom
+push
+move
+-80 95 0
+box
+0 0 0 20 -40 20
+rotate
+y 50
+rotate
+x 10
+
+#middle
+push
+move
+0 50 0
+sphere
+10 0 0 10
+box
+0 10 0 20 -40 20
+rotate
+y 50
+rotate
+x 10
+
+#top
+push
+move
+0 60 0
+sphere
+10 0 0 10
+box
+0 10 0 20 -30 20
+rotate
+y 50
+rotate
+x 10
+
+
+#MID
+pop
+pop
+pop
+push
+move
+-35 95 0
+box
+0 0 0 20 -70 20
+sphere
+10 81 0 10
+box
+0 90 0 20 -40 20
+sphere
+10 141 0 10
+box
+0 150 0 20 -40 20
+rotate
+y 50
+rotate
+x 10
+
+
+#RING
+pop
+push
+move
+15 95 0
+box
+0 0 0 20 -40 20
+sphere
+10 50 0 10
+box
+0 60 0 20 -40 20
+sphere
+10 110 0 10
+box
+0 120 0 20 -40 20
+rotate
+y 50
+rotate
+x 10
+
+#PINKY
+pop
+push
+move
+60 95 0
+box
+0 0 0 20 -30 20
+sphere
+11 40 0 10
+box
+0 50 0 20 -30 20
+sphere
+11 90 0 10
+box
+0 100 0 20 -35 20
+rotate
+y 50
+rotate
+x 10
+
+
+#THUMB
+pop
+push
+move
+60 95 0
+box
+-150 -40 0 -40 100 10
+sphere
+-169 -23 0 15
+box
+-153 80 0 -30 85 20
+rotate
+y 50
+rotate
+x 10
+
+display
+save
+hand.png

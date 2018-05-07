@@ -11,33 +11,48 @@ LOCATION = 0
 COLOR = 1
 SPECULAR_EXP = 4
 
-#lighting functions
 def get_lighting(normal, view, ambient, light, areflect, dreflect, sreflect ):
-    amb = calculate_ambient(ambient,areflect)
-    dif = 0
-    spec = 0
-
-    return amb + dif + spec
+    a = calculate_ambient(ambient, areflect)
+    d = calculate_diffuse(light, dreflect, normal)
+    s = calculate_specular(light, sreflect, view, normal)
+    return limit_color([x+y+z for x,y,z in zip(a,d,s)])
 
 def calculate_ambient(alight, areflect):
-    return [x*areflect for x in alight]
+    return limit_color([int(a*b) for a,b in zip(alight,areflect)])
 
 def calculate_diffuse(light, dreflect, normal):
-    return light[1]*dreflect*dot(normal, light)
+    color = [int(a*b) for a,b in zip(light[1],dreflect)]
+    normlight = normalize(light[0])
+    norm = normalize(normal)
+    dot = dot_product(norm, normlight)
+    return limit_color([int(x*dot) for x in color])
+
 
 def calculate_specular(light, sreflect, view, normal):
-    pass
+    color = [int(a*b) for a,b in zip(light[1],sreflect)]
+    normlight = normalize(light[0])
+    normview = normalize(view)
+    norm = normalize(normal)
+    if dot_product(norm, normlight) <= 0:
+        return [0,0,0]
+    fir = [x*2*dot_product(norm, normlight) for x in norm]
+    sec = [x-y for x,y in zip(fir,normlight)]
+    last = [int(x*(dot_product(sec,normview)**16)) for x in color]
+    return limit_color(last)
+
 
 def limit_color(color):
-    pass
+    ret =  [x if x <= 255 else 255 for x in color]
+    return [x if x >= 0 else 0 for x in ret]
 
-#vector functions
+
 def normalize(vector):
     denom = (vector[0]**2 + vector[1]**2 + vector[2]**2) **0.5
     return [each/denom for each in vector]
 
 def dot_product(a, b): 
     return sum(m*n for m,n in zip(a, b))
+
 
 def calculate_normal(polygons, i):
 
