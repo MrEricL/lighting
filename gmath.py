@@ -1,9 +1,6 @@
 import math
 from display import *
 
-'''
-AKa     +       PKd(Nhat*Lhat)      +   PKa [ (2(L-> dot  N->) N hat - Lhat) dot  V hat ] ^ x
-'''
 AMBIENT = 0
 DIFFUSE = 1
 SPECULAR = 2
@@ -11,15 +8,21 @@ LOCATION = 0
 COLOR = 1
 SPECULAR_EXP = 4
 
+
+'''
+AKa     +       PKd(Nhat*Lhat)      +   PKa [ (2(L-> dot  N->) N hat - Lhat) dot  V hat ] ^ x
+'''
 def get_lighting(normal, view, ambient, light, areflect, dreflect, sreflect ):
     a = calculate_ambient(ambient, areflect)
     d = calculate_diffuse(light, dreflect, normal)
     s = calculate_specular(light, sreflect, view, normal)
     return limit_color([x+y+z for x,y,z in zip(a,d,s)])
 
+# AKa
 def calculate_ambient(alight, areflect):
     return limit_color([int(a*b) for a,b in zip(alight,areflect)])
 
+#   PKd(Nhat*Lhat)
 def calculate_diffuse(light, dreflect, normal):
     color = [int(a*b) for a,b in zip(light[1],dreflect)]
     normlight = normalize(light[0])
@@ -27,7 +30,7 @@ def calculate_diffuse(light, dreflect, normal):
     dot = dot_product(norm, normlight)
     return limit_color([int(x*dot) for x in color])
 
-
+# PKa [ (2(L-> dot  N->) N hat - Lhat) dot  V hat ] ^ x
 def calculate_specular(light, sreflect, view, normal):
     color = [int(a*b) for a,b in zip(light[1],sreflect)]
     normlight = normalize(light[0])
@@ -40,7 +43,7 @@ def calculate_specular(light, sreflect, view, normal):
     last = [int(x*(dot_product(sec,normview)**16)) for x in color]
     return limit_color(last)
 
-
+#List comp!!!
 def limit_color(color):
     ret =  [x if x <= 255 else 255 for x in color]
     return [x if x >= 0 else 0 for x in ret]
