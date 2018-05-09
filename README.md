@@ -1,2 +1,2 @@
 # lighting
-Graphics assignment- Applying Phong Reflection model
+Graphics- Adding shading to the engine with the Phong Reflection model
